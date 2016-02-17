@@ -32,5 +32,5 @@
 # "temporary" build files
 /target
 .idea
-.iml
+*.iml
 .slcache
