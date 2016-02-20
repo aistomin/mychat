@@ -83,11 +83,8 @@
 	</head>
 	<body>
     <h1>Chat</h1>
-    <p>
-        <button id="chat-subscribe">Subscribe</button>
-    </p>
     <div id="chat-window"></div>
-    <label for="chat-input">Message:</label><input id="chat-input" type="text"/>
+    <label for="chat-input"></label><input id="chat-input" type="text"/>
     <script type="text/javascript">
         // required for IE console logging
         if (!window.console) console = {log: function () {
@@ -197,15 +194,11 @@
                 Jabber.socket = atmosphere;
             }
 
-            $('#chat-subscribe').on('click', function () {
-                var atmosphereRequest = {
-                    type: 'chat',
-                    url: 'atmosphere/chat/12345'
-                };
-                Jabber.subscribe(atmosphereRequest);
-                $(this).attr('disabled', 'disabled');
-                $('#chat-input').focus();
-            });
+            var atmosphereRequest = {
+                type: 'chat',
+                url: 'atmosphere/chat/12345'
+            };
+            Jabber.subscribe(atmosphereRequest);
 
             $('#chat-input').keypress(function (event) {
                 if (event.which === 13) {
