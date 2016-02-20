@@ -79,44 +79,184 @@
 				}
 			}
 		</style>
+        <asset:javascript src="atmosphere-meteor-jquery.js"/>
 	</head>
 	<body>
-		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${GroovySystem.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
-				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-					<li>${plugin.name} - ${plugin.version}</li>
-				</g:each>
-			</ul>
-		</div>
-		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
+    <h1>Chat</h1>
+    <p>
+        <button id="chat-subscribe">Subscribe</button>
+    </p>
+    <div id="chat-window"></div>
+    <label for="chat-input">Message:</label><input id="chat-input" type="text"/>
+    <script type="text/javascript">
+        // required for IE console logging
+        if (!window.console) console = {log: function () {
+        }};
 
-			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
-				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
-				</ul>
-			</div>
-		</div>
+        /*
+         The Jabber variable holds all JavaScript code required for communicating with the server.
+         It basically wraps the functions in atmosphere.js and jquery.atmosphere.js.
+         */
+        var Jabber = {
+            socket: null,
+            chatSubscription: null,
+            notificationSubscription: null,
+            publicSubscription: null,
+            transport: null,
+
+            subscribe: function (options) {
+                var defaults = {
+                            type: '',
+                            contentType: "application/json",
+                            shared: false,
+                            transport: 'websocket',
+                            //transport: 'long-polling',
+                            fallbackTransport: 'long-polling',
+                            trackMessageLength: true
+                        },
+                        atmosphereRequest = $.extend({}, defaults, options);
+                atmosphereRequest.onOpen = function (response) {
+                    console.log('atmosphereOpen transport: ' + response.transport);
+                };
+                atmosphereRequest.onReconnect = function (request, response) {
+                    console.log("atmosphereReconnect");
+                };
+                atmosphereRequest.onMessage = function (response) {
+                    //console.log('onMessage: ' + response.responseBody);
+                    Jabber.onMessage(response);
+                };
+                atmosphereRequest.onError = function (response) {
+                    console.log('atmosphereError: ' + response);
+                };
+                atmosphereRequest.onTransportFailure = function (errorMsg, request) {
+                    console.log('atmosphereTransportFailure: ' + errorMsg);
+                };
+                atmosphereRequest.onClose = function (response) {
+                    console.log('atmosphereClose: ' + response);
+                };
+                switch (options.type) {
+                    case 'chat':
+                        Jabber.chatSubscription = Jabber.socket.subscribe(atmosphereRequest);
+                        break;
+                    case 'notification':
+                        Jabber.notificationSubscription = Jabber.socket.subscribe(atmosphereRequest);
+                        break;
+                    case 'public':
+                        Jabber.publicSubscription = Jabber.socket.subscribe(atmosphereRequest);
+                        break;
+                    default:
+                        return false;
+                }
+            },
+
+            unsubscribe: function () {
+                Jabber.socket.unsubscribe();
+                $('#chat-window').html('');
+                $('#notification').html('');
+                $('#public-update').html('');
+                $('button').each(function () {
+                    $(this).removeAttr('disabled');
+                })
+            },
+
+            onMessage: function (response) {
+                var data = response.responseBody;
+                if ((message == '')) {
+                    return;
+                }
+                console.log(data);
+                var message = JSON.parse(data);
+                var type = message.type;
+                if (type == 'chat') {
+                    var $chat = $('#chat-window');
+                    $chat.append('message: ' + message.message + '<br/>');
+                    $chat.scrollTop($chat.height());
+                }
+                if (type == 'notification') {
+                    $('#notification').html(message.message);
+                }
+                if (type == 'public') {
+                    $('#public-update').html(message.message);
+                    if (message.message == 'Finished.') {
+                        $('#public-trigger').removeAttr('disabled');
+                    }
+                }
+            }
+        };
+
+        $(window).unload(function () {
+            Jabber.unsubscribe();
+        });
+
+        $(document).ready(function () {
+            if (typeof atmosphere == 'undefined') {
+                // if using jquery.atmosphere.js
+                Jabber.socket = $.atmosphere;
+            } else {
+                // if using atmosphere.js
+                Jabber.socket = atmosphere;
+            }
+
+            $('#chat-subscribe').on('click', function () {
+                var atmosphereRequest = {
+                    type: 'chat',
+                    url: 'atmosphere/chat/12345'
+                };
+                Jabber.subscribe(atmosphereRequest);
+                $(this).attr('disabled', 'disabled');
+                $('#chat-input').focus();
+            });
+
+            $('#chat-input').keypress(function (event) {
+                if (event.which === 13) {
+                    event.preventDefault();
+                    var data = {
+                        type: 'chat',
+                        message: $(this).val()
+                    };
+                    Jabber.chatSubscription.push(JSON.stringify(data));
+                    $(this).val('');
+                }
+            });
+
+            $('#notification-subscribe').on('click', function () {
+                var atmosphereRequest = {
+                    type: 'notification',
+                    // note that the DefaultMeteorHandler uses the header below for setting and getting the broadcaster
+                    headers: {'X-AtmosphereMeteor-Mapping': '/atmosphere/notification/userName'},
+                    url: 'atmosphere/notification/userName'
+                };
+                Jabber.subscribe(atmosphereRequest);
+                $(this).attr('disabled', 'disabled');
+            });
+
+            $('#notification-send').on('click', function () {
+                var data = {
+                    type: 'notification',
+                    message: 'This is a notification message sent at ' + new Date() + '.'
+                };
+                Jabber.notificationSubscription.push(JSON.stringify(data));
+            });
+
+            $('#public-subscribe').on('click', function () {
+                var atmosphereRequest = {
+                    type: 'public',
+                    url: 'atmosphere/public',
+                    trackMessageLength: false
+                };
+                Jabber.subscribe(atmosphereRequest);
+                $(this).attr('disabled', 'disabled');
+            });
+
+            $('#public-trigger').on('click', function () {
+                $.ajax('atmosphereTest/triggerPublic');
+                $(this).attr('disabled', 'disabled');
+            });
+
+            $('#unsubscribe').on('click', function () {
+                Jabber.unsubscribe();
+            });
+        });
+    </script>
 	</body>
 </html>

@@ -13,7 +13,8 @@ grails.project.fork = [
     console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
 ]
 
-grails.project.dependency.resolver = "maven" // or ivy
+grails.project.dependency.resolver = "maven"
+grails.tomcat.nio = true
 grails.project.dependency.resolution = {
     inherits("global") {
     }
@@ -40,7 +41,8 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
-        runtime ":hibernate4:4.3.8.1" // or ":hibernate:3.6.10.18"
+        compile "org.grails.plugins:atmosphere-meteor:1.0.5"
+        runtime ":hibernate4:4.3.8.1"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
     }
