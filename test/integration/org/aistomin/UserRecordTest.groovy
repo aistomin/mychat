@@ -1,11 +1,13 @@
 package org.aistomin
 
+import org.aistomin.gorm.UserRecord
+
 /**
  * Created by aistomin on 22/02/16.
  *
- * Test for {@link User}
+ * Test for {@link UserRecord}
  */
-class UserEntityTest extends GroovyTestCase {
+class UserRecordTest extends GroovyTestCase {
 
     /**
      * Check user's fields constraints.
@@ -13,53 +15,53 @@ class UserEntityTest extends GroovyTestCase {
     void testConstraints() {
         final def test = 'test'
         shouldFail {
-            new User(
+            new UserRecord(
                 name: generate(21),
                 username: test,
                 password: test
             ).save()
         }
         shouldFail {
-            new User(
+            new UserRecord(
                 name: null,
                 username: test,
                 password: test
             ).save()
         }
         shouldFail {
-            new User(
+            new UserRecord(
                 name: '',
                 username: test,
                 password: test
             ).save()
         }
         shouldFail {
-            new User(
+            new UserRecord(
                 name: test,
                 username: generate(16),
                 password: test
             ).save()
         }
         shouldFail {
-            new User(
+            new UserRecord(
                 name: test,
                 username: null,
                 password: test
             ).save()
         }
         shouldFail {
-            new User(
+            new UserRecord(
                 name: test,
                 username: '',
                 password: test
             ).save()
         }
-        new User(
+        new UserRecord(
             name: test,
             username: test,
             password: test
         ).save()
-        assertNotNull(User.findByUsername(test))
+        assertNotNull(UserRecord.findByUsername(test))
     }
 
     /**

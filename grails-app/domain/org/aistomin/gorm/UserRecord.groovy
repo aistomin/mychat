@@ -1,4 +1,4 @@
-package org.aistomin
+package org.aistomin.gorm
 
 import grails.persistence.Entity
 
@@ -6,7 +6,7 @@ import grails.persistence.Entity
  * User entity.
  */
 @Entity
-class User {
+class UserRecord {
 
     /**
      * User's display name.
