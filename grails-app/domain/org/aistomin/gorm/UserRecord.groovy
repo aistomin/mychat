@@ -23,6 +23,11 @@ class UserRecord {
      */
     String password
 
+    /**
+     * Is user online now?
+     */
+    Boolean isOnline = false
+
     static constraints = {
         name blank: false, maxSize: 20
         username blank: false, maxSize: 15
