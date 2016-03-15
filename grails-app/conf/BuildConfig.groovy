@@ -42,6 +42,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
         compile "org.grails.plugins:atmosphere-meteor:1.0.5"
+        // compile "org.grails.plugins:spring-security-core:2.0.0"
         runtime ":hibernate4:4.3.8.1"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"

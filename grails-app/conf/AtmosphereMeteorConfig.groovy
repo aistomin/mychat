@@ -1,4 +1,4 @@
-import org.aistomin.ChatHandler
+import org.aistomin.chat.ChatHandler
 
 defaultMapping = "/atmosphere/*"
 

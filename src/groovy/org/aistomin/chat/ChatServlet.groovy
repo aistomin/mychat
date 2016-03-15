@@ -1,4 +1,4 @@
-package org.aistomin
+package org.aistomin.chat
 
 import javax.servlet.ServletConfig
 import javax.servlet.ServletException

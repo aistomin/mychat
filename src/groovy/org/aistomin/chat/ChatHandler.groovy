@@ -1,4 +1,4 @@
-package org.aistomin
+package org.aistomin.chat
 
 import grails.converters.JSON
 import grails.util.Holders

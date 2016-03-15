@@ -1,6 +1,6 @@
-package org.aistomin
+package org.aistomin.chat.model
 
-import org.aistomin.gorm.UserRecord
+import org.aistomin.chat.model.UserRecord
 
 /**
  * Created by aistomin on 22/02/16.

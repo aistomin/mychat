@@ -1,4 +1,4 @@
-package org.aistomin.gorm
+package org.aistomin.chat.model
 
 import grails.persistence.Entity
 
