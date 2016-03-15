@@ -1,5 +1,7 @@
 package org.aistomin
 
+import grails.plugin.springsecurity.annotation.Secured
+
 class ChatController {
 
     def atmosphereMeteor

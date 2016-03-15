@@ -7,10 +7,10 @@ grails.project.target.level = 1.7
 grails.project.source.level = 1.7
 
 grails.project.fork = [
-    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
-    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+    test   : false,
+    run    : false,
+    war    : false,
+    console: false
 ]
 
 grails.project.dependency.resolver = "maven"
@@ -42,7 +42,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
         compile "org.grails.plugins:atmosphere-meteor:1.0.5"
-        // compile "org.grails.plugins:spring-security-core:2.0.0"
+        compile "org.grails.plugins:spring-security-core:2.0.0"
         runtime ":hibernate4:4.3.8.1"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
