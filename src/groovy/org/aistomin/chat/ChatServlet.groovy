@@ -8,6 +8,8 @@ import org.grails.plugins.atmosphere_meteor.AtmosphereConfigurationHolder
 
 /**
  * Created by aistomin on 20/02/16.
+ *
+ * Servlet that is initialising the meteor stuff.
  */
 class ChatServlet extends MeteorServlet {
 

@@ -15,6 +15,8 @@ import org.atmosphere.websocket.WebSocketEventListenerAdapter
 
 /**
  * Created by aistomin on 20/02/16.
+ *
+ * Servlet that is handling chat events.
  */
 class ChatHandler extends HttpServlet {
 
