@@ -12,7 +12,7 @@ def defaultInitParams = [
 ]
 servlets = [
     MeteorServletChat: [
-        className : "org.aistomin.ChatServlet",
+        className : "org.aistomin.chat.ChatServlet",
         mapping   : "/atmosphere/chat/*",
         handler   : ChatHandler,
         initParams: defaultInitParams
