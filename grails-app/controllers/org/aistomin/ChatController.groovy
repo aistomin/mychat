@@ -1,10 +1,24 @@
 package org.aistomin
 
+/**
+ * Main chat controller.
+ */
 class ChatController {
 
+    /**
+     * Atmosphere service.
+     */
     def atmosphereMeteor
+
+    /**
+     * Chat service.
+     */
     def chatService
 
+    /**
+     * Open index page.
+     * @return rendered page.
+     */
     def index() {
         if (!atmosphereMeteor.broadcasterFactory) {
             throw new RuntimeException(
