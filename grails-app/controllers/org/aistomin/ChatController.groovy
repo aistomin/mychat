@@ -28,7 +28,6 @@ class ChatController {
      */
     @Secured(['ROLE_USER'])
     def index() {
-        println "ChatController.index"
         if (!atmosphereMeteor.broadcasterFactory) {
             throw new RuntimeException(
                 "atmosphereMeteor.broadcasterFactory is null"
@@ -42,8 +41,6 @@ class ChatController {
         assert springSecurityService.isLoggedIn()
         final def user = springSecurityService.getCurrentUser()
         assert user
-        println "user = $user"
-        println "user = $user"
         render(view: "/chat/index", model: [currentUser: user])
     }
 
