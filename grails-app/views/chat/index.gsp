@@ -166,7 +166,7 @@
                 var type = message.type;
                 if (type == 'chat') {
                     var $chat = $('#chat-window');
-                    $chat.append('message: ' + message.message + '<br/>');
+                    $chat.append('<b>${currentUser.name}: </b>' + message.message + '<br/>');
                     $chat.scrollTop($chat.height());
                 }
                 if (type == 'notification') {
