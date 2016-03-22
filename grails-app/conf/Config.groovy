@@ -76,17 +76,12 @@ log4j.main = {
         'org.springframework',
         'org.hibernate',
         'net.sf.ehcache.hibernate'
-    debug 'org.springframework.security'
 }
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.aistomin.chat.model.UserRecord'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.aistomin.chat.model.UserRecordUserRoleRecord'
 grails.plugin.springsecurity.authority.className = 'org.aistomin.chat.model.UserRoleRecord'
-grails.plugin.springsecurity.useSecurityEventListener = true
-grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx ->
-    println "\nERROR auth failed for user $e.authentication.name: $e.exception.message\n"
-}
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/'                 : ['ROLE_USER'],
