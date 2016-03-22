@@ -76,21 +76,29 @@ log4j.main = {
         'org.springframework',
         'org.hibernate',
         'net.sf.ehcache.hibernate'
+    debug 'org.springframework.security'
 }
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.aistomin.chat.model.UserRecord'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.aistomin.chat.model.UserRecordUserRoleRecord'
 grails.plugin.springsecurity.authority.className = 'org.aistomin.chat.model.UserRoleRecord'
+grails.plugin.springsecurity.useSecurityEventListener = true
+grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx ->
+    println "\nERROR auth failed for user $e.authentication.name: $e.exception.message\n"
+}
+
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-    '/'                 : ['permitAll'],
-    '/index'            : ['permitAll'],
-    '/index.gsp'        : ['permitAll'],
+    '/'                 : ['ROLE_USER'],
+    '/index'            : ['ROLE_USER'],
+    '/index.gsp'        : ['ROLE_USER'],
     '/assets/**'        : ['permitAll'],
     '/**/js/**'         : ['permitAll'],
     '/**/css/**'        : ['permitAll'],
     '/**/images/**'     : ['permitAll'],
     '/**/favicon.ico'   : ['permitAll'],
-    '/atmosphere/chat/*': ['permitAll']
+    '/atmosphere/chat/*': ['permitAll'],
+    '/login/**'         : ['permitAll'],
+    '/logout/**'        : ['permitAll']
 ]
 

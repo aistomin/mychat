@@ -1,5 +1,7 @@
 package org.aistomin
 
+import grails.plugin.springsecurity.annotation.Secured
+
 /**
  * Main chat controller.
  */
@@ -19,6 +21,7 @@ class ChatController {
      * Open index page.
      * @return rendered page.
      */
+    @Secured(['ROLE_USER'])
     def index() {
         if (!atmosphereMeteor.broadcasterFactory) {
             throw new RuntimeException(
@@ -33,6 +36,7 @@ class ChatController {
         render(view: "/index")
     }
 
+    @Secured(['ROLE_USER'])
     def triggerPublic() {
         chatService.triggerPublic()
         render "success"

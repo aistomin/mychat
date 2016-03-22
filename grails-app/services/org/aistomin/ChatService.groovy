@@ -1,9 +1,11 @@
 package org.aistomin
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
 @Transactional
+@Secured(['ROLE_USER'])
 class ChatService {
 
     def atmosphereMeteorService
