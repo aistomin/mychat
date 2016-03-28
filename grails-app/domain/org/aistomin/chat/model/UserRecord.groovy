@@ -19,7 +19,7 @@ class UserRecord {
     /**
      * User's display name.
      */
-    String name
+    String name = "User${System.currentTimeMillis()}"
 
     /**
      * User's username.

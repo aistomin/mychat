@@ -82,6 +82,7 @@ log4j.main = {
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.aistomin.chat.model.UserRecord'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.aistomin.chat.model.UserRecordUserRoleRecord'
 grails.plugin.springsecurity.authority.className = 'org.aistomin.chat.model.UserRoleRecord'
+grails.plugin.springsecurity.ui.register.defaultRoleNames = ['ROLE_USER']
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/'                 : ['ROLE_USER'],
