@@ -94,6 +94,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/**/favicon.ico'   : ['permitAll'],
     '/atmosphere/chat/*': ['permitAll'],
     '/login/**'         : ['permitAll'],
-    '/logout/**'        : ['permitAll']
+    '/logout/**'        : ['permitAll'],
+    '/register/**'      : ['permitAll']
 ]
 
