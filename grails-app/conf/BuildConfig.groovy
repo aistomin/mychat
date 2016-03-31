@@ -44,6 +44,7 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:atmosphere-meteor:1.0.5"
         compile "org.grails.plugins:spring-security-core:2.0.0"
         compile "org.grails.plugins:spring-security-ui:1.0-RC3"
+        compile "org.grails.plugins:asynchronous-mail:1.2"
         runtime ":hibernate4:4.3.8.1"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
