@@ -1,3 +1,5 @@
+import com.icegreen.greenmail.util.ServerSetupTest
+
 grails.project.groupId = appName
 
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
@@ -20,6 +22,10 @@ grails.mime.types = [
 grails.views.default.codec = "html"
 
 grails.controllers.defaultScope = 'singleton'
+
+grails.mail.port = ServerSetupTest.SMTP.port
+
+grails.serverURL = 'http://localhost:8080/mychat'
 
 grails {
     views {
