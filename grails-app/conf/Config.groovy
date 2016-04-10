@@ -103,6 +103,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/atmosphere/chat/*': ['permitAll'],
     '/login/**'         : ['permitAll'],
     '/logout/**'        : ['permitAll'],
-    '/register/**'      : ['permitAll']
+    '/register/*'       : ['permitAll'],
+    '/greenmail/*'      : ['permitAll']
 ]
 
