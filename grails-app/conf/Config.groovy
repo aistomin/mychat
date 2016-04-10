@@ -89,7 +89,7 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.aistomin.chat
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.aistomin.chat.model.UserRecordUserRoleRecord'
 grails.plugin.springsecurity.authority.className = 'org.aistomin.chat.model.UserRoleRecord'
 grails.plugin.springsecurity.ui.register.defaultRoleNames = ['ROLE_USER']
-grails.plugin.springsecurity.ui.register.postRegisterUrl = '/'
+grails.plugin.springsecurity.ui.register.postRegisterUrl = '/login'
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/'                 : ['ROLE_USER'],
@@ -103,7 +103,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/atmosphere/chat/*': ['permitAll'],
     '/login/**'         : ['permitAll'],
     '/logout/**'        : ['permitAll'],
-    '/register/*'       : ['permitAll'],
-    '/greenmail/*'      : ['permitAll']
+    '/register/**'      : ['permitAll'],
+    '/greenmail/**'     : ['permitAll']
 ]
 
