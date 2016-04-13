@@ -1,7 +1,5 @@
 package org.aistomin.chat.model
 
-import org.aistomin.chat.model.UserRecord
-
 /**
  * Created by aistomin on 22/02/16.
  *
