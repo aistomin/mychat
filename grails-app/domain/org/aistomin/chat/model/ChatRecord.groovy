@@ -20,7 +20,7 @@ class ChatRecord {
 
     static hasMany = [
         messages: MessageRecord,
-        members: UserRecord
+        members : UserRecord
     ]
     static constraints = {
         title blank: false, maxSize: 20
