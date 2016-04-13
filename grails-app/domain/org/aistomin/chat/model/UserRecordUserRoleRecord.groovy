@@ -50,7 +50,10 @@ class UserRecordUserRoleRecord implements Serializable {
         }
     }
 
-    static UserRecordUserRoleRecord create(UserRecord userRecord, UserRoleRecord userRoleRecord, boolean flush = false) {
+    static UserRecordUserRoleRecord create(
+        UserRecord userRecord, UserRoleRecord userRoleRecord,
+        boolean flush = false
+    ) {
         def instance = new UserRecordUserRoleRecord(userRecord: userRecord, userRoleRecord: userRoleRecord)
         instance.save(flush: flush, insert: true)
         instance
