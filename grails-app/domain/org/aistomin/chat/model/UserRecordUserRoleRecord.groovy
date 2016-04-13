@@ -56,7 +56,9 @@ class UserRecordUserRoleRecord implements Serializable {
         UserRecord userRecord, UserRoleRecord userRoleRecord,
         boolean flush = false
     ) {
-        def instance = new UserRecordUserRoleRecord(userRecord: userRecord, userRoleRecord: userRoleRecord)
+        def instance = new UserRecordUserRoleRecord(
+            userRecord: userRecord, userRoleRecord: userRoleRecord
+        )
         instance.save(flush: flush, insert: true)
         instance
     }
@@ -64,7 +66,9 @@ class UserRecordUserRoleRecord implements Serializable {
     static boolean remove(UserRecord u, UserRoleRecord r, boolean flush = false) {
         if (u == null || r == null) return false
 
-        int rowCount = UserRecordUserRoleRecord.where { userRecord == u && userRoleRecord == r }.deleteAll()
+        int rowCount = UserRecordUserRoleRecord.where {
+            userRecord == u && userRoleRecord == r
+        }.deleteAll()
 
         if (flush) {
             UserRecordUserRoleRecord.withSession { it.flush() }
