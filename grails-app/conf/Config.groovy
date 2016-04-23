@@ -84,7 +84,6 @@ log4j.main = {
         'net.sf.ehcache.hibernate'
 }
 
-// Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.aistomin.chat.model.UserRecord'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.aistomin.chat.model.UserRecordUserRoleRecord'
 grails.plugin.springsecurity.authority.className = 'org.aistomin.chat.model.UserRoleRecord'
