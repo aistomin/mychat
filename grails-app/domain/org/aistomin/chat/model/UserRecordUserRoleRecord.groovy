@@ -23,8 +23,8 @@ class UserRecordUserRoleRecord implements Serializable {
         if (!(other instanceof UserRecordUserRoleRecord)) {
             return false
         }
-
-        other.userRecord?.id == userRecord?.id && other.userRoleRecord?.id == userRoleRecord?.id
+        other.userRecord?.id == userRecord?.id &&
+            other.userRoleRecord?.id == userRoleRecord?.id
     }
 
     @Override
@@ -35,7 +35,9 @@ class UserRecordUserRoleRecord implements Serializable {
         builder.toHashCode()
     }
 
-    static UserRecordUserRoleRecord get(long userRecordId, long userRoleRecordId) {
+    static UserRecordUserRoleRecord get(
+        long userRecordId, long userRoleRecordId
+    ) {
         criteriaFor(userRecordId, userRoleRecordId).get()
     }
 
@@ -63,7 +65,9 @@ class UserRecordUserRoleRecord implements Serializable {
         instance
     }
 
-    static boolean remove(UserRecord u, UserRoleRecord r, boolean flush = false) {
+    static boolean remove(
+        UserRecord u, UserRoleRecord r, boolean flush = false
+    ) {
         if (u == null || r == null) return false
 
         int rowCount = UserRecordUserRoleRecord.where {
