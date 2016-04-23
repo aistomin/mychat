@@ -16,7 +16,8 @@ class ChatServlet extends MeteorServlet {
     @Override
     public void init(ServletConfig sc) throws ServletException {
         super.init(sc)
-        def servletConfig = AtmosphereConfigurationHolder.atmosphereMeteorConfig.servlets.get(sc.servletName)
+        def servletConfig = AtmosphereConfigurationHolder.atmosphereMeteorConfig
+            .servlets.get(sc.servletName)
         def mapping = servletConfig.mapping
         def handler = servletConfig.handler.newInstance()
         def handlerClass = handler.class.getName()
