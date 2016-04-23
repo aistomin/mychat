@@ -20,14 +20,20 @@ import org.atmosphere.websocket.WebSocketEventListenerAdapter
  */
 class ChatHandler extends HttpServlet {
 
-    private final def atmosphereMeteor = Holders.applicationContext.getBean("atmosphereMeteor")
+    private final def atmosphereMeteor = Holders.applicationContext
+        .getBean("atmosphereMeteor")
 
-    private final def chatService = Holders.applicationContext.getBean("chatService")
+    private final def chatService = Holders.applicationContext
+        .getBean("chatService")
 
     @Override
-    void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    void doGet(
+        HttpServletRequest request, HttpServletResponse response
+    ) throws IOException {
         String mapping = "/atmosphere/chat" + request.getPathInfo()
-        Broadcaster b = atmosphereMeteor.broadcasterFactory.lookup(DefaultBroadcaster.class, mapping, true)
+        Broadcaster b = atmosphereMeteor.broadcasterFactory.lookup(
+            DefaultBroadcaster.class, mapping, true
+        )
         Meteor m = Meteor.build(request)
 
         if (m.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET)) {
@@ -50,11 +56,15 @@ class ChatHandler extends HttpServlet {
     }
 
     @Override
-    void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    void doPost(
+        HttpServletRequest request, HttpServletResponse response
+    ) throws IOException {
         String mapping = "/atmosphere/chat" + request.getPathInfo();
         def jsonMap = JSON.parse(request.getReader().readLine().trim()) as Map
-        String type = jsonMap.containsKey("type") ? jsonMap.type.toString() : null
-        String message = jsonMap.containsKey("message") ? jsonMap.message.toString() : null
+        String type = jsonMap.containsKey("type") ?
+            jsonMap.type.toString() : null
+        String message = jsonMap.containsKey("message") ?
+            jsonMap.message.toString() : null
 
         if (type == null || message == null) {
             chatService.recordIncompleteMessage(jsonMap)
@@ -63,7 +73,9 @@ class ChatHandler extends HttpServlet {
                 chatService.recordMaliciousUseWarning(jsonMap)
             } else {
                 chatService.recordChat(jsonMap)
-                Broadcaster b = atmosphereMeteor.broadcasterFactory.lookup(DefaultBroadcaster.class, mapping)
+                Broadcaster b = atmosphereMeteor.broadcasterFactory.lookup(
+                    DefaultBroadcaster.class, mapping
+                )
                 b.broadcast(jsonMap)
             }
         }
